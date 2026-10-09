@@ -92,8 +92,10 @@ async function writeBeforeSubmission(label,args){
     catch(error){
       const saved=JSON.parse(fs.readFileSync(path.join(journal,label+'.json'),'utf8'));
       const message=(saved.stdout||'')+'\n'+(saved.stderr||'');
+      // Once a hash exists, recover its receipt; never send the write again.
+      if(saved.hash)return 'Write Transaction Hash: '+saved.hash;
       // eth_gasPrice is read before signing; never retry submission errors.
-      if(saved.hash || !/eth_gasPrice/.test(message) || attempt===2)throw error;
+      if(!/eth_gasPrice/.test(message) || attempt===2)throw error;
       console.log('PRE-SIGN RPC RETRY',label);
       await new Promise(resolve=>setTimeout(resolve,30000));
     }
@@ -124,6 +126,9 @@ async function rpc(method, params) {
   const transactions=[{label:'pool-deploy',action:'deploy',hash:deployHash}];
   const steps=Object.keys(expected).map(name=>({name,method:'reconcile_batch',source:name}));
   const initialState=result(await invoke('initial-state',['call',contract,'get_state']));
+  const resumedFirstHash=process.env.REMITTANCE_RESUME_COMBINED_HASH;
+  if(resumedFirstHash && !/^0x[0-9a-f]{64}$/i.test(resumedFirstHash))throw Error('Invalid combined resume hash');
+  if(resumedFirstHash && initialState.batches.length>1)throw Error('Resume input requires at most the first scenario already recorded');
   for(const step of steps) {
     const cachedPath=path.join(proofs,step.name+'.json');
     if(fs.existsSync(cachedPath)){
@@ -138,7 +143,7 @@ async function rpc(method, params) {
     // Leave room for receipt polls and shared gateway rate limits.
     await new Promise(resolve=>setTimeout(resolve,15000));
     const args=step.source ? ['--args',sources[step.source].url,sources[step.source].sha256] : [];
-    const output=await writeBeforeSubmission(step.name,['write',contract,step.method,...args]);
+    const output=step.name==='combined' && resumedFirstHash ? 'Write Transaction Hash: '+resumedFirstHash : await writeBeforeSubmission(step.name,['write',contract,step.method,...args]);
     const hash=output.match(/Write Transaction Hash:\s*(0x[0-9a-f]{64})/i)?.[1];
     if(!hash) throw Error('Missing write hash');
     await receipt(step.name,hash);

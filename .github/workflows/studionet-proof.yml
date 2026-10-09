@@ -7,6 +7,11 @@ on:
         required: false
         default: ''
         type: string
+      resume_combined_hash:
+        description: Previously submitted combined scenario hash; wait and verify without resubmitting
+        required: false
+        default: ''
+        type: string
 permissions:
   contents: read
 jobs:
@@ -38,6 +43,7 @@ jobs:
           REMITTANCE_PASSWORD_FILE: ${{ github.workspace }}/.secrets/account-password.txt
           REMITTANCE_ACCOUNT: remittance-kernel-proof
           REMITTANCE_RESUME_HASH: ${{ inputs.resume_deploy_hash }}
+          REMITTANCE_RESUME_COMBINED_HASH: ${{ inputs.resume_combined_hash }}
         run: node scripts/prove-scenarios.cjs
       - uses: actions/upload-artifact@v4
         if: always()
