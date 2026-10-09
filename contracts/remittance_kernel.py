@@ -44,14 +44,30 @@ def extraction(raw, data):
             raw = json.loads(raw)
     except ValueError:
         fail('[LLM_ERROR] Invalid extraction JSON')
-    if not isinstance(raw, dict) or set(raw) != {'entries'} or not isinstance(raw['entries'], list) or len(raw['entries']) != len(data['entries']):
+    if not isinstance(raw, dict) or 'entries' not in raw or set(raw) - {'entries', 'reason', 'explanation', 'summary'} or not isinstance(raw['entries'], list) or len(raw['entries']) != len(data['entries']):
         fail('[LLM_ERROR] Extraction shape')
+    print('Extraction candidate', json.dumps(raw, sort_keys=True)[:6000])
+    by_id = {}
+    for item in raw['entries']:
+        if not isinstance(item, dict) or not isinstance(item.get('id'), str) or item['id'] in by_id:
+            fail('[LLM_ERROR] Duplicate or missing extraction ID')
+        by_id[item['id']] = item
+    if set(by_id) != {entry['id'] for entry in data['entries']}:
+        fail('[LLM_ERROR] Extraction IDs differ from source')
     output = []
-    for original, item in zip(data['entries'], raw['entries']):
-        if not isinstance(item, dict) or set(item) != {'id', 'role', 'cents', 'allowed'} or item['id'] != original['id'] or item['role'] not in ('INVOICE', 'PAYMENT', 'IGNORE', 'UNKNOWN'):
+    for original in data['entries']:
+        item = by_id[original['id']]
+        if set(item) - {'id', 'role', 'cents', 'allowed', 'reason', 'explanation', 'evidence', 'quotes'} or not isinstance(item.get('role'), str):
             fail('[LLM_ERROR] Extraction entry')
-        role, cents, allowed = item['role'], item['cents'], item['allowed']
+        role = item['role'].strip().upper()
+        if role not in ('INVOICE', 'PAYMENT', 'IGNORE', 'UNKNOWN'):
+            fail('[LLM_ERROR] Extraction role')
+        cents, allowed = item.get('cents'), item.get('allowed')
+        if role == 'PAYMENT' and 'allowed' not in item:
+            fail('[LLM_ERROR] Payment restriction decision required')
         if role in ('INVOICE', 'PAYMENT'):
+            if isinstance(cents, str) and re.fullmatch(r'[0-9]{1,9}', cents):
+                cents = int(cents)
             if type(cents) is not int or not 1 <= cents <= 100000000:
                 fail('[LLM_ERROR] Positive integer cents required')
         elif cents is not None:
@@ -62,7 +78,7 @@ def extraction(raw, data):
             if not isinstance(allowed, list) or not 1 <= len(allowed) <= 8 or any(not isinstance(x, str) or not re.fullmatch(r'[A-Z0-9-]{1,32}', x) for x in allowed) or len(set(allowed)) != len(allowed):
                 fail('[LLM_ERROR] Invalid payment restriction')
             allowed = sorted(allowed)
-        output.append({'id': item['id'], 'role': role, 'cents': cents, 'allowed': allowed})
+        output.append({'id': original['id'], 'role': role, 'cents': cents, 'allowed': allowed})
     # A named invoice outside this batch is valid evidence, but cannot be matched.
     return output
 

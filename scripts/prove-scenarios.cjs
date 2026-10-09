@@ -102,10 +102,22 @@ async function writeBeforeSubmission(label,args){
   }
 }
 async function rpc(method, params) {
-  const response = await fetch('https://studio.genlayer.com/api', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }), signal: AbortSignal.timeout(30000) });
-  const data = await response.json();
-  if (!response.ok || data.error) throw Error(JSON.stringify(data.error || response.status));
-  return data.result;
+  if(!['eth_chainId','gen_getContractCode'].includes(method))throw Error('Read-only RPC helper');
+  for(let attempt=0;attempt<3;attempt++){
+    try{
+      const response = await fetch('https://studio.genlayer.com/api', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }), signal: AbortSignal.timeout(30000) });
+      const data = await response.json();
+      if (!response.ok || data.error) throw Error(JSON.stringify(data.error || response.status));
+      return data.result;
+    }catch(error){if(attempt===2)throw error;await new Promise(resolve=>setTimeout(resolve,15000));}
+  }
+}
+async function invokeRead(label,args){
+  if(!['call','code'].includes(args[0]))throw Error('Read-only CLI helper');
+  for(let attempt=0;attempt<3;attempt++){
+    try{return await invoke(label,args);}
+    catch(error){if(attempt===2)throw error;await new Promise(resolve=>setTimeout(resolve,15000));}
+  }
 }
 
 (async()=>{
@@ -125,13 +137,13 @@ async function rpc(method, params) {
   await receipt('pool-deploy',deployHash);
   const transactions=[{label:'pool-deploy',action:'deploy',hash:deployHash}];
   const steps=Object.keys(expected).map(name=>({name,method:'reconcile_batch',source:name}));
-  const initialState=result(await invoke('initial-state',['call',contract,'get_state']));
+  const initialState=result(await invokeRead('initial-state',['call',contract,'get_state']));
   const resumedFirstHash=process.env.REMITTANCE_RESUME_COMBINED_HASH;
   if(resumedFirstHash && !/^0x[0-9a-f]{64}$/i.test(resumedFirstHash))throw Error('Invalid combined resume hash');
   if(resumedFirstHash && initialState.batches.length>1)throw Error('Resume input requires at most the first scenario already recorded');
   for(const step of steps) {
     const cachedPath=path.join(proofs,step.name+'.json');
-    if(fs.existsSync(cachedPath)){
+    if(process.env.REMITTANCE_RESUME_HASH && fs.existsSync(cachedPath)){
       const cached=JSON.parse(fs.readFileSync(cachedPath,'utf8'));
       const accepted=JSON.parse(fs.readFileSync(path.join(proofs,step.name+'-receipt.json'),'utf8'));
       const index=transactions.length-1;
@@ -148,20 +160,20 @@ async function rpc(method, params) {
     if(!hash) throw Error('Missing write hash');
     await receipt(step.name,hash);
     transactions.push({label:step.name,action:step.method,hash});
-    const state=result(await invoke(step.name+'-state',['call',contract,'get_state']));
+    const state=result(await invokeRead(step.name+'-state',['call',contract,'get_state']));
     const batch=state.batches.at(-1),target=expected[step.source];
     if(batch.sha256!==sources[step.source].sha256 || batch.result.status!==target.status || !equal(batch.entries,target.entries)) throw Error('Unexpected reconciliation: '+JSON.stringify(state));
     const consumed={};
     for(const priorBatch of state.batches)for(const entry of priorBatch.entries){
       if(!Object.hasOwn(consumed,entry.id)){
         await new Promise(resolve=>setTimeout(resolve,3500));
-        consumed[entry.id]=result(await invoke(step.name+'-consumed-'+entry.id,['call',contract,'is_consumed','--args',entry.id]));
+        consumed[entry.id]=result(await invokeRead(step.name+'-consumed-'+entry.id,['call',contract,'is_consumed','--args',entry.id]));
       }
     }
     save(step.name,{network:'studionet',chain_id:61999,contract_address:contract,source_sha256:sourceHash,fixture_revision:revision,transaction:transactions.at(-1),state,consumed});
     console.log('STATE VERIFIED',step.name);
   }
-  const codeOutput=await invoke('pool-code',['code',contract]);
+  const codeOutput=await invokeRead('pool-code',['code',contract]);
   const start=codeOutput.indexOf('# { "Depends":');
   if(start<0 || codeOutput.slice(start,start+source.length)!==source.toString()) throw Error('Deployed source mismatch');
   save('deployment',{network:'studionet',chain_id:61999,contract_address:contract,source_sha256:sourceHash,exact_source_match:true,fixture_revision:revision,sources,transactions});

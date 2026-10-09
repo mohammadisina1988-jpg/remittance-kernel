@@ -61,12 +61,12 @@ def test_validator_refetches_bytes(kernel,direct_vm):
     run(kernel,direct_vm,'combined');mock(direct_vm,'combined',body=BODY['combined']+b' ')
     assert direct_vm.run_validator() is False
 
-@pytest.mark.parametrize('kind',['bool','fraction','reordered','missing','negative','duplicate-allowed','unknown-amount'])
+@pytest.mark.parametrize('kind',['bool','fraction','duplicate-id','missing','negative','duplicate-allowed','unknown-amount'])
 def test_malformed_extraction_atomic(kernel,direct_vm,kind):
     bad=report('combined')
     if kind=='bool':bad['entries'][0]['cents']=True
     if kind=='fraction':bad['entries'][0]['cents']=4000.5
-    if kind=='reordered':bad['entries'].reverse()
+    if kind=='duplicate-id':bad['entries'][1]['id']=bad['entries'][0]['id']
     if kind=='missing':bad['entries'].pop()
     if kind=='negative':bad['entries'][0]['cents']=-1
     if kind=='duplicate-allowed':bad['entries'][3]['allowed']=['C-I1','C-I1']
@@ -78,6 +78,33 @@ def test_malformed_extraction_atomic(kernel,direct_vm,kind):
 def test_source_replay_rejected(kernel,direct_vm):
     run(kernel,direct_vm,'combined')
     with direct_vm.expect_revert('already processed'):kernel.reconcile_batch(*source('combined'))
+
+def test_metadata_order_case_and_exact_integer_strings_normalize(kernel,direct_vm):
+    candidate=report('combined')
+    for row in candidate['entries']:
+        row['reason']='Document-based classification'
+        row['role']=row['role'].lower()
+        if row['cents'] is not None:row['cents']=str(row['cents'])
+    candidate['entries'].reverse()
+    mock(direct_vm,'combined',leader=candidate)
+    kernel.reconcile_batch(*source('combined'))
+    assert kernel.get_state()['batches'][0]['entries']==EXPECTED['combined']['entries']
+    assert direct_vm.run_validator() is True
+
+@pytest.mark.parametrize('name,index',[('combined',5),('review',1)])
+def test_explicit_negative_and_unknown_omitted_null_fields(kernel,direct_vm,name,index):
+    candidate=report(name)
+    del candidate['entries'][index]['cents'];del candidate['entries'][index]['allowed']
+    mock(direct_vm,name,leader=candidate)
+    kernel.reconcile_batch(*source(name))
+    assert kernel.get_state()['batches'][0]['entries']==EXPECTED[name]['entries']
+    assert direct_vm.run_validator() is True
+
+def test_payment_cannot_omit_restriction_decision(kernel,direct_vm):
+    candidate=report('combined');del candidate['entries'][3]['allowed']
+    mock(direct_vm,'combined',leader=candidate)
+    with direct_vm.expect_revert('restriction decision required'):kernel.reconcile_batch(*source('combined'))
+    assert kernel.get_state()['batches']==[]
 
 def test_document_reuse_different_commit_rejected(kernel,direct_vm):
     run(kernel,direct_vm,'combined')
