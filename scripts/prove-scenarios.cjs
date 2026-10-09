@@ -119,6 +119,18 @@ async function invokeRead(label,args){
     catch(error){if(attempt===2)throw error;await new Promise(resolve=>setTimeout(resolve,15000));}
   }
 }
+async function deployWithRecovery(){
+  for(let attempt=0;attempt<3;attempt++){
+    try{return await invoke('pool-deploy',['deploy']);}
+    catch(error){
+      const saved=JSON.parse(fs.readFileSync(path.join(journal,'pool-deploy.json'),'utf8'));
+      const message=(saved.stdout||'')+'\n'+(saved.stderr||'');
+      // invoke resumes the recorded deployment hash on the next attempt.
+      if(!saved.hash || !/RPC|timeout|Unexpected token|connection/i.test(message) || attempt===2)throw error;
+      await new Promise(resolve=>setTimeout(resolve,15000));
+    }
+  }
+}
 
 (async()=>{
   if(await rpc('eth_chainId',[])!=='0xf22f') throw Error('Unexpected chain ID');
@@ -130,7 +142,7 @@ async function invokeRead(label,args){
     if(!upstream.ok || !body.equals(Buffer.from(await upstream.arrayBuffer()))) throw Error('Fixture mismatch '+name);
     sources[name]={url,sha256:digest(body)};
   }
-  const deployed=result(await invoke('pool-deploy',['deploy']));
+  const deployed=result(await deployWithRecovery());
   const contract=deployed['Contract Address'], deployHash=deployed['Transaction Hash'];
   const deployedCode=Buffer.from(await rpc('gen_getContractCode',[contract]),'base64');
   if(!source.equals(deployedCode))throw Error('Existing deployed source mismatch');
