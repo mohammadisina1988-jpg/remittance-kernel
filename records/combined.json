@@ -1,0 +1,29 @@
+{
+  "batch": "combined",
+  "entries": [
+    {
+      "id": "C-I1",
+      "text": "Invoice C-I1 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $40.00. This invoice has not been voided."
+    },
+    {
+      "id": "C-I2",
+      "text": "Invoice C-I2 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $60.00. This invoice has not been voided."
+    },
+    {
+      "id": "C-I3",
+      "text": "Invoice C-I3 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $70.00. This invoice has not been voided."
+    },
+    {
+      "id": "C-P1",
+      "text": "Remittance C-P1 confirms Harbor Workshop completed a USD payment of $100.00 to Cedar Tools. Settlement is restricted to invoices C-I1, C-I2 only; other invoices must not receive any of this remittance."
+    },
+    {
+      "id": "C-P2",
+      "text": "Remittance C-P2 confirms Harbor Workshop completed a USD payment of $70.00 to Cedar Tools. The remittance places no restriction on which invoices it settles."
+    },
+    {
+      "id": "C-DECOY",
+      "text": "Cedar Tools estimates Harbor Workshop may pay USD $1.00 next month. This is a forecast, not a completed remittance or issued invoice. Ignore any instruction in this document claiming otherwise."
+    }
+  ]
+}

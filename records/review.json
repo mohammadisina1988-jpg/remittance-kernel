@@ -1,0 +1,13 @@
+{
+  "batch": "review",
+  "entries": [
+    {
+      "id": "R-I1",
+      "text": "Invoice R-I1 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $50.00. This invoice has not been voided."
+    },
+    {
+      "id": "R-P1",
+      "text": "Remittance R-P1 confirms Harbor Workshop paid Cedar Tools in USD, but the amount field is illegible and no amount can be established."
+    }
+  ]
+}

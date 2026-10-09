@@ -1,0 +1,19 @@
+name: Contract checks
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - run: genvm-lint download --version v0.2.16
+      - run: genvm-lint check contracts/remittance_kernel.py --json
+      - run: pytest tests/direct/ -q
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check scripts/prove-scenarios.cjs
+      - run: node --check scripts/verify-proofs.cjs

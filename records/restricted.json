@@ -1,0 +1,17 @@
+{
+  "batch": "restricted",
+  "entries": [
+    {
+      "id": "X-I1",
+      "text": "Invoice X-I1 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $40.00. This invoice has not been voided."
+    },
+    {
+      "id": "X-I2",
+      "text": "Invoice X-I2 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $60.00. This invoice has not been voided."
+    },
+    {
+      "id": "X-P1",
+      "text": "Remittance X-P1 confirms Harbor Workshop completed a USD payment of $100.00 to Cedar Tools. Settlement is restricted to invoices X-I1 only; other invoices must not receive any of this remittance."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "batch": "unbalanced",
+  "entries": [
+    {
+      "id": "U-I1",
+      "text": "Invoice U-I1 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $50.00. This invoice has not been voided."
+    },
+    {
+      "id": "U-P1",
+      "text": "Remittance U-P1 confirms Harbor Workshop completed a USD payment of $49.00 to Cedar Tools. The remittance places no restriction on which invoices it settles."
+    }
+  ]
+}

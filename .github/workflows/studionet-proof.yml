@@ -1,0 +1,47 @@
+name: StudioNet proof
+on:
+  workflow_dispatch:
+    inputs:
+      resume_deploy_hash:
+        description: Existing finalized deployment hash; skips deploying again
+        required: false
+        default: ''
+        type: string
+permissions:
+  contents: read
+jobs:
+  prove:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --no-audit --no-fund
+      - name: Create ephemeral gasless account
+        shell: bash
+        run: |
+          mkdir -p .secrets
+          openssl rand -hex 24 > .secrets/account-password.txt
+          account_password="$(cat .secrets/account-password.txt)"
+          echo "::add-mask::$account_password"
+          node node_modules/genlayer/dist/index.js account create --name remittance-kernel-proof --password "$account_password"
+          node node_modules/genlayer/dist/index.js network set studionet
+          account_info="$(node node_modules/genlayer/dist/index.js account show --account remittance-kernel-proof)"
+          account_address="$(printf '%s' "$account_info" | grep -oE '0x[0-9a-fA-F]{40}' | head -1)"
+          test -n "$account_address"
+          echo "REMITTANCE_DEPLOYER_ADDRESS=$account_address" >> "$GITHUB_ENV"
+      - name: Deploy and verify remittance reconciliations
+        env:
+          GENLAYER_CLI_PATH: ${{ github.workspace }}/node_modules/genlayer/dist/index.js
+          REMITTANCE_PASSWORD_FILE: ${{ github.workspace }}/.secrets/account-password.txt
+          REMITTANCE_ACCOUNT: remittance-kernel-proof
+          REMITTANCE_RESUME_HASH: ${{ inputs.resume_deploy_hash }}
+        run: node scripts/prove-scenarios.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: studionet-proof
+          path: proofs/*.json
+          if-no-files-found: warn

@@ -1,0 +1,21 @@
+{
+  "batch": "ambiguous",
+  "entries": [
+    {
+      "id": "A-I1",
+      "text": "Invoice A-I1 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $50.00. This invoice has not been voided."
+    },
+    {
+      "id": "A-I2",
+      "text": "Invoice A-I2 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $50.00. This invoice has not been voided."
+    },
+    {
+      "id": "A-P1",
+      "text": "Remittance A-P1 confirms Harbor Workshop completed a USD payment of $50.00 to Cedar Tools. The remittance places no restriction on which invoices it settles."
+    },
+    {
+      "id": "A-P2",
+      "text": "Remittance A-P2 confirms Harbor Workshop completed a USD payment of $50.00 to Cedar Tools. The remittance places no restriction on which invoices it settles."
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "combined": {
+    "entries": [
+      {
+        "id": "C-I1",
+        "role": "INVOICE",
+        "cents": 4000,
+        "allowed": null
+      },
+      {
+        "id": "C-I2",
+        "role": "INVOICE",
+        "cents": 6000,
+        "allowed": null
+      },
+      {
+        "id": "C-I3",
+        "role": "INVOICE",
+        "cents": 7000,
+        "allowed": null
+      },
+      {
+        "id": "C-P1",
+        "role": "PAYMENT",
+        "cents": 10000,
+        "allowed": [
+          "C-I1",
+          "C-I2"
+        ]
+      },
+      {
+        "id": "C-P2",
+        "role": "PAYMENT",
+        "cents": 7000,
+        "allowed": null
+      },
+      {
+        "id": "C-DECOY",
+        "role": "IGNORE",
+        "cents": null,
+        "allowed": null
+      }
+    ],
+    "status": "UNIQUE"
+  },
+  "ambiguous": {
+    "entries": [
+      {
+        "id": "A-I1",
+        "role": "INVOICE",
+        "cents": 5000,
+        "allowed": null
+      },
+      {
+        "id": "A-I2",
+        "role": "INVOICE",
+        "cents": 5000,
+        "allowed": null
+      },
+      {
+        "id": "A-P1",
+        "role": "PAYMENT",
+        "cents": 5000,
+        "allowed": null
+      },
+      {
+        "id": "A-P2",
+        "role": "PAYMENT",
+        "cents": 5000,
+        "allowed": null
+      }
+    ],
+    "status": "AMBIGUOUS"
+  },
+  "unbalanced": {
+    "entries": [
+      {
+        "id": "U-I1",
+        "role": "INVOICE",
+        "cents": 5000,
+        "allowed": null
+      },
+      {
+        "id": "U-P1",
+        "role": "PAYMENT",
+        "cents": 4900,
+        "allowed": null
+      }
+    ],
+    "status": "UNBALANCED"
+  },
+  "review": {
+    "entries": [
+      {
+        "id": "R-I1",
+        "role": "INVOICE",
+        "cents": 5000,
+        "allowed": null
+      },
+      {
+        "id": "R-P1",
+        "role": "UNKNOWN",
+        "cents": null,
+        "allowed": null
+      }
+    ],
+    "status": "REVIEW"
+  },
+  "restricted": {
+    "entries": [
+      {
+        "id": "X-I1",
+        "role": "INVOICE",
+        "cents": 4000,
+        "allowed": null
+      },
+      {
+        "id": "X-I2",
+        "role": "INVOICE",
+        "cents": 6000,
+        "allowed": null
+      },
+      {
+        "id": "X-P1",
+        "role": "PAYMENT",
+        "cents": 10000,
+        "allowed": [
+          "X-I1"
+        ]
+      }
+    ],
+    "status": "UNMATCHABLE"
+  }
+}

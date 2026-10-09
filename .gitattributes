@@ -1,0 +1,4 @@
+* text=auto
+contracts/*.py text eol=lf
+records/*.md -text
+records/*.json -text

@@ -1,0 +1,7 @@
+{
+  "name": "remittance-kernel",
+  "private": true,
+  "devDependencies": {
+    "genlayer": "0.39.2"
+  }
+}
