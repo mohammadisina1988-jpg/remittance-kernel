@@ -15,7 +15,10 @@ def source(name,body=None):
     return f'https://raw.githubusercontent.com/{REPO}/{"a"*40}/records/{name}.json',hashlib.sha256(BODY[name] if body is None else body).hexdigest()
 
 def report(name):
-    return {'entries':json.loads(json.dumps(EXPECTED[name]['entries']))}
+    entries=json.loads(json.dumps(EXPECTED[name]['entries']))
+    for row in entries:
+        if row['role']=='PAYMENT':row['restriction']='UNRESTRICTED' if row['allowed'] is None else 'LIMITED'
+    return {'entries':entries}
 
 def mock(vm,name,leader=None,own=None,body=None):
     vm.clear_mocks()
@@ -47,13 +50,15 @@ def test_cases_and_consumption(kernel,direct_vm,name):
 def test_validator_exact_consequential_fields(kernel,direct_vm,field,value):
     run(kernel,direct_vm,'combined')
     own=report('combined');own['entries'][3][field]=value
-    if field=='role':own['entries'][3].update(cents=None,allowed=None)
+    if field=='allowed':own['entries'][3]['restriction']='UNRESTRICTED'
+    if field=='role':
+        own['entries'][3].update(cents=None,allowed=None);own['entries'][3].pop('restriction')
     mock(direct_vm,'combined',own=own)
     assert direct_vm.run_validator() is False
 
 def test_validator_negative_and_unknown_decisions(kernel,direct_vm):
     run(kernel,direct_vm,'review')
-    own=report('review');own['entries'][1].update(role='PAYMENT',cents=5000)
+    own=report('review');own['entries'][1].update(role='PAYMENT',cents=5000,restriction='UNRESTRICTED')
     mock(direct_vm,'review',own=own)
     assert direct_vm.run_validator() is False
 
@@ -101,10 +106,28 @@ def test_explicit_negative_and_unknown_omitted_null_fields(kernel,direct_vm,name
     assert direct_vm.run_validator() is True
 
 def test_payment_cannot_omit_restriction_decision(kernel,direct_vm):
-    candidate=report('combined');del candidate['entries'][3]['allowed']
+    candidate=report('combined');del candidate['entries'][3]['restriction']
     mock(direct_vm,'combined',leader=candidate)
     with direct_vm.expect_revert('restriction decision required'):kernel.reconcile_batch(*source('combined'))
     assert kernel.get_state()['batches']==[]
+
+def test_all_null_fields_omitted_but_payment_enum_is_explicit(kernel,direct_vm):
+    candidate=report('combined')
+    candidate['entries']=[{key:value for key,value in row.items() if value is not None} for row in candidate['entries']]
+    mock(direct_vm,'combined',leader=candidate)
+    kernel.reconcile_batch(*source('combined'))
+    assert kernel.get_state()['batches'][0]['entries']==EXPECTED['combined']['entries']
+    assert direct_vm.run_validator() is True
+
+def test_limited_payment_must_name_invoices(kernel,direct_vm):
+    candidate=report('combined');del candidate['entries'][3]['allowed']
+    mock(direct_vm,'combined',leader=candidate)
+    with direct_vm.expect_revert('Limited invoice set'):kernel.reconcile_batch(*source('combined'))
+
+def test_unrestricted_payment_cannot_also_name_invoices(kernel,direct_vm):
+    candidate=report('combined');candidate['entries'][4]['allowed']=['C-I3']
+    mock(direct_vm,'combined',leader=candidate)
+    with direct_vm.expect_revert('Contradictory unrestricted'):kernel.reconcile_batch(*source('combined'))
 
 def test_document_reuse_different_commit_rejected(kernel,direct_vm):
     run(kernel,direct_vm,'combined')
@@ -115,7 +138,7 @@ def test_document_reuse_different_commit_rejected(kernel,direct_vm):
 def test_ambiguity_does_not_consume_and_new_evidence_can_resolve(kernel,direct_vm):
     run(kernel,direct_vm,'ambiguous')
     data=json.loads(BODY['ambiguous']);data['entries'][2]['text']+=' It settles only invoice A-I1.'
-    body=json.dumps(data).encode();fixed=report('ambiguous');fixed['entries'][2]['allowed']=['A-I1']
+    body=json.dumps(data).encode();fixed=report('ambiguous');fixed['entries'][2].update(allowed=['A-I1'],restriction='LIMITED')
     mock(direct_vm,'ambiguous',leader=fixed,own=fixed,body=body)
     kernel.reconcile_batch(*source('ambiguous',body))
     assert kernel.get_state()['batches'][-1]['result']['status']=='UNIQUE'

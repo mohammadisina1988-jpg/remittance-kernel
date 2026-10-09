@@ -10,6 +10,8 @@ The source includes a batch label and 2–8 uniquely identified prose entries. T
 
 Each validator acquires the same full source, checks its commitment, extracts independently without seeing the leader extraction in its prompt, and compares normalized ID, role, amount and restriction set exactly. Null restriction means unrestricted; a named set is binding. UNKNOWN has null amount. No confidence score, approximation or tolerance can cross the eligibility/uniqueness decision. Malformed or conflicting model responses fail closed; validator errors reject rather than bless a failure.
 
+Normalization keys entries by their exact source IDs, accepts enum casing and exact digit strings for integer cents, and discards bounded-schema explanation fields. Explicit IGNORE/UNKNOWN entries may omit null-valued fields. Every PAYMENT must provide the non-null string UNRESTRICTED or LIMITED; LIMITED also requires a nonempty allowed invoice set. The stored canonical allowed set is null only after an explicit UNRESTRICTED decision, and independently derived sets must match exactly. The parser never infers unrestricted permission from omission. Duplicate, missing or invented IDs, fractional amounts and positive amounts on unresolved entries remain errors.
+
 Exact agreement still cannot eliminate correlated model mistakes. Public documents are untrusted prompt data. Fixed schema, bounded outputs, independent interpretation and strict comparisons reduce risks; they do not establish physical or financial facts.
 
 ## Allocation

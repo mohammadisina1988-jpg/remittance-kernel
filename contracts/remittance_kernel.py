@@ -57,14 +57,25 @@ def extraction(raw, data):
     output = []
     for original in data['entries']:
         item = by_id[original['id']]
-        if set(item) - {'id', 'role', 'cents', 'allowed', 'reason', 'explanation', 'evidence', 'quotes'} or not isinstance(item.get('role'), str):
+        if set(item) - {'id', 'role', 'cents', 'restriction', 'allowed', 'reason', 'explanation', 'evidence', 'quotes'} or not isinstance(item.get('role'), str):
             fail('[LLM_ERROR] Extraction entry')
         role = item['role'].strip().upper()
         if role not in ('INVOICE', 'PAYMENT', 'IGNORE', 'UNKNOWN'):
             fail('[LLM_ERROR] Extraction role')
         cents, allowed = item.get('cents'), item.get('allowed')
-        if role == 'PAYMENT' and 'allowed' not in item:
-            fail('[LLM_ERROR] Payment restriction decision required')
+        if role == 'PAYMENT':
+            restriction = item.get('restriction')
+            if not isinstance(restriction, str) or restriction.strip().upper() not in ('UNRESTRICTED', 'LIMITED'):
+                fail('[LLM_ERROR] Payment restriction decision required')
+            restriction = restriction.strip().upper()
+            if restriction == 'UNRESTRICTED':
+                if allowed is not None and allowed != []:
+                    fail('[LLM_ERROR] Contradictory unrestricted payment')
+                allowed = None
+            elif not isinstance(allowed, list) or not allowed:
+                fail('[LLM_ERROR] Limited invoice set required')
+        elif item.get('restriction') is not None:
+            fail('[LLM_ERROR] Restriction on nonpayment')
         if role in ('INVOICE', 'PAYMENT'):
             if isinstance(cents, str) and re.fullmatch(r'[0-9]{1,9}', cents):
                 cents = int(cents)
@@ -127,10 +138,12 @@ def prompt(data, buyer, supplier, marker):
         'Only USD invoices actually issued by supplier to buyer and completed USD payments by buyer to supplier qualify. ' + \
         'Forecasts, quotes, proposed payments, other parties, and voided documents are IGNORE. Missing or conflicting material facts are UNKNOWN. ' + \
         'Convert exact decimal USD to integer cents without rounding. Use INVOICE or PAYMENT only with a definite positive amount and definite qualifying parties. ' + \
-        'For PAYMENT, allowed is null when unrestricted; if its narrative limits settlement to named invoice IDs, list those exact IDs. ' + \
+        'For every PAYMENT, include restriction as the explicit string UNRESTRICTED or LIMITED. Never omit this field or use null for it. ' + \
+        'UNRESTRICTED means the narrative imposes no invoice restriction; omit allowed in that case. LIMITED requires allowed as the nonempty list of exact named invoice IDs. ' + \
         'Do not infer a restriction merely because the amount equals an invoice. Distinct document IDs remain distinct even at equal amounts. ' + \
-        'Output only {"entries":[{"id":"source ID","role":"INVOICE|PAYMENT|IGNORE|UNKNOWN","cents":integer_or_null,"allowed":null_or_invoice_ID_list}]}, in source order. ' + \
-        'For IGNORE and UNKNOWN use null cents and allowed. For INVOICE use null allowed. ' + \
+        'Output only a JSON object with entries in source order. Every entry has id and role, choosing one of INVOICE, PAYMENT, IGNORE, UNKNOWN. ' + \
+        'INVOICE and PAYMENT require integer cents. PAYMENT always requires restriction; LIMITED also requires allowed. ' + \
+        'IGNORE and UNKNOWN omit cents, restriction and allowed. INVOICE omits restriction and allowed. Do not use null-valued fields. ' + \
         json.dumps({'buyer': buyer, 'supplier': supplier, 'document': data}, sort_keys=True)
 
 

@@ -31,6 +31,8 @@ Python 3.12: `pip install -r requirements.txt`, `genvm-lint download --version v
 
 Node 22: `npm ci`; dispatch the **StudioNet proof** workflow. It creates a dedicated encrypted, gasless development-chain account, invokes GenLayer CLI 0.39.2, preserves receipts, compares deployed source bytes, reads resulting state and consumption flags, then runs `node scripts/verify-proofs.cjs`. Private keystores and passwords are excluded from artifacts and Git.
 
+For interrupted RPC polling, use the recorded deployment hash in `resume_deploy_hash`. If the first scenario was submitted before its receipt could be checked, also supply its exact hash in `resume_combined_hash`. These inputs recover existing transactions; they do not replace unsuccessful consensus decisions with new submissions. A changed contract source requires a fresh deployment.
+
 ## Scope and provenance
 
 This is documentary reconciliation, not a bank-payment attestation, money transfer, invoice authenticity check, or delivery proof. A fixed publisher is a trust boundary: content hashes prove fetched bytes, not publisher honesty. Synthetic documents demonstrate the mechanism. Stable document IDs must be assigned honestly by that publisher; renamed duplicates cannot be detected.
