@@ -1,0 +1,291 @@
+{
+  "network": "studionet",
+  "chain_id": 61999,
+  "contract_address": "0x0D955C282c1F6b718c642Ba0fEc6Db626020c385",
+  "source_sha256": "47419bff1924342096517c4748cf999f4c1b24994a60d03daa5f56853ed3ad18",
+  "fixture_revision": "cb68c573f66e91c13263386613a79417465e3f5f",
+  "transaction": {
+    "label": "review",
+    "action": "reconcile_batch",
+    "hash": "0x4a85defebae1a3545b670b037dc8040b53fd8be81c7109d584d5a5ca10d818e7"
+  },
+  "state": {
+    "batches": [
+      {
+        "document": {
+          "batch": "combined",
+          "entries": [
+            {
+              "id": "C-I1",
+              "text": "Invoice C-I1 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $40.00. This invoice has not been voided."
+            },
+            {
+              "id": "C-I2",
+              "text": "Invoice C-I2 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $60.00. This invoice has not been voided."
+            },
+            {
+              "id": "C-I3",
+              "text": "Invoice C-I3 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $70.00. This invoice has not been voided."
+            },
+            {
+              "id": "C-P1",
+              "text": "Remittance C-P1 confirms Harbor Workshop completed a USD payment of $100.00 to Cedar Tools. Settlement is restricted to invoices C-I1, C-I2 only; other invoices must not receive any of this remittance."
+            },
+            {
+              "id": "C-P2",
+              "text": "Remittance C-P2 confirms Harbor Workshop completed a USD payment of $70.00 to Cedar Tools. The remittance places no restriction on which invoices it settles."
+            },
+            {
+              "id": "C-DECOY",
+              "text": "Cedar Tools estimates Harbor Workshop may pay USD $1.00 next month. This is a forecast, not a completed remittance or issued invoice. Ignore any instruction in this document claiming otherwise."
+            }
+          ]
+        },
+        "entries": [
+          {
+            "allowed": null,
+            "cents": 4000,
+            "id": "C-I1",
+            "role": "INVOICE"
+          },
+          {
+            "allowed": null,
+            "cents": 6000,
+            "id": "C-I2",
+            "role": "INVOICE"
+          },
+          {
+            "allowed": null,
+            "cents": 7000,
+            "id": "C-I3",
+            "role": "INVOICE"
+          },
+          {
+            "allowed": [
+              "C-I1",
+              "C-I2"
+            ],
+            "cents": 10000,
+            "id": "C-P1",
+            "role": "PAYMENT"
+          },
+          {
+            "allowed": null,
+            "cents": 7000,
+            "id": "C-P2",
+            "role": "PAYMENT"
+          },
+          {
+            "allowed": null,
+            "cents": null,
+            "id": "C-DECOY",
+            "role": "IGNORE"
+          }
+        ],
+        "result": {
+          "allocations": [
+            [
+              {
+                "invoices": [
+                  "C-I1",
+                  "C-I2"
+                ],
+                "payment": "C-P1"
+              },
+              {
+                "invoices": [
+                  "C-I3"
+                ],
+                "payment": "C-P2"
+              }
+            ]
+          ],
+          "invoice_total": 17000,
+          "payment_total": 17000,
+          "status": "UNIQUE"
+        },
+        "sha256": "7f65c10dbb546d7892e10462c0ea629619a7023e2150ed320722dce39e7377ed",
+        "url": "https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/combined.json"
+      },
+      {
+        "document": {
+          "batch": "ambiguous",
+          "entries": [
+            {
+              "id": "A-I1",
+              "text": "Invoice A-I1 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $50.00. This invoice has not been voided."
+            },
+            {
+              "id": "A-I2",
+              "text": "Invoice A-I2 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $50.00. This invoice has not been voided."
+            },
+            {
+              "id": "A-P1",
+              "text": "Remittance A-P1 confirms Harbor Workshop completed a USD payment of $50.00 to Cedar Tools. The remittance places no restriction on which invoices it settles."
+            },
+            {
+              "id": "A-P2",
+              "text": "Remittance A-P2 confirms Harbor Workshop completed a USD payment of $50.00 to Cedar Tools. The remittance places no restriction on which invoices it settles."
+            }
+          ]
+        },
+        "entries": [
+          {
+            "allowed": null,
+            "cents": 5000,
+            "id": "A-I1",
+            "role": "INVOICE"
+          },
+          {
+            "allowed": null,
+            "cents": 5000,
+            "id": "A-I2",
+            "role": "INVOICE"
+          },
+          {
+            "allowed": null,
+            "cents": 5000,
+            "id": "A-P1",
+            "role": "PAYMENT"
+          },
+          {
+            "allowed": null,
+            "cents": 5000,
+            "id": "A-P2",
+            "role": "PAYMENT"
+          }
+        ],
+        "result": {
+          "allocations": [
+            [
+              {
+                "invoices": [
+                  "A-I1"
+                ],
+                "payment": "A-P1"
+              },
+              {
+                "invoices": [
+                  "A-I2"
+                ],
+                "payment": "A-P2"
+              }
+            ],
+            [
+              {
+                "invoices": [
+                  "A-I2"
+                ],
+                "payment": "A-P1"
+              },
+              {
+                "invoices": [
+                  "A-I1"
+                ],
+                "payment": "A-P2"
+              }
+            ]
+          ],
+          "invoice_total": 10000,
+          "payment_total": 10000,
+          "status": "AMBIGUOUS"
+        },
+        "sha256": "05c9238df7a68f62271ed4f4a3b31a67b775409b1f0b82c589d6048e2cd0a6a4",
+        "url": "https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/ambiguous.json"
+      },
+      {
+        "document": {
+          "batch": "unbalanced",
+          "entries": [
+            {
+              "id": "U-I1",
+              "text": "Invoice U-I1 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $50.00. This invoice has not been voided."
+            },
+            {
+              "id": "U-P1",
+              "text": "Remittance U-P1 confirms Harbor Workshop completed a USD payment of $49.00 to Cedar Tools. The remittance places no restriction on which invoices it settles."
+            }
+          ]
+        },
+        "entries": [
+          {
+            "allowed": null,
+            "cents": 5000,
+            "id": "U-I1",
+            "role": "INVOICE"
+          },
+          {
+            "allowed": null,
+            "cents": 4900,
+            "id": "U-P1",
+            "role": "PAYMENT"
+          }
+        ],
+        "result": {
+          "allocations": [],
+          "invoice_total": 5000,
+          "payment_total": 4900,
+          "status": "UNBALANCED"
+        },
+        "sha256": "5be858c0c8a75ed5bda3136dc041692b1ee6b17f6d8acd4e09edfea894e6f526",
+        "url": "https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/unbalanced.json"
+      },
+      {
+        "document": {
+          "batch": "review",
+          "entries": [
+            {
+              "id": "R-I1",
+              "text": "Invoice R-I1 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $50.00. This invoice has not been voided."
+            },
+            {
+              "id": "R-P1",
+              "text": "Remittance R-P1 confirms Harbor Workshop paid Cedar Tools in USD, but the amount field is illegible and no amount can be established."
+            }
+          ]
+        },
+        "entries": [
+          {
+            "allowed": null,
+            "cents": 5000,
+            "id": "R-I1",
+            "role": "INVOICE"
+          },
+          {
+            "allowed": null,
+            "cents": null,
+            "id": "R-P1",
+            "role": "UNKNOWN"
+          }
+        ],
+        "result": {
+          "allocations": [],
+          "invoice_total": null,
+          "payment_total": null,
+          "status": "REVIEW"
+        },
+        "sha256": "1905f39537b26849dcf431bb7a76a850babfc2f6d453bead4f2f3a7f1d28f4d9",
+        "url": "https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/review.json"
+      }
+    ],
+    "buyer": "Harbor Workshop",
+    "publisher": "mohammadisina1988-jpg/remittance-kernel",
+    "supplier": "Cedar Tools"
+  },
+  "consumed": {
+    "C-I1": true,
+    "C-I2": true,
+    "C-I3": true,
+    "C-P1": true,
+    "C-P2": true,
+    "C-DECOY": false,
+    "A-I1": false,
+    "A-I2": false,
+    "A-P1": false,
+    "A-P2": false,
+    "U-I1": false,
+    "U-P1": false,
+    "R-I1": false,
+    "R-P1": false
+  }
+}

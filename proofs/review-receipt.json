@@ -1,0 +1,189 @@
+{
+  "hash": "0x4a85defebae1a3545b670b037dc8040b53fd8be81c7109d584d5a5ca10d818e7",
+  "from_address": "0x338E7e2eDA2e6E9b5136Fb6ED4c11e45db480333",
+  "to_address": "0x0D955C282c1F6b718c642Ba0fEc6Db626020c385",
+  "data": {
+    "calldata": {
+      "readable": "{\"args\":[\"https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/review.json\",\"1905f39537b26849dcf431bb7a76a850babfc2f6d453bead4f2f3a7f1d28f4d9\",]\"method\":\"reconcile_batch\"}"
+    }
+  },
+  "status": 7,
+  "result": 6,
+  "consensus_data": {
+    "votes": {
+      "0x3E5ee2507cc167C9925Bf10c67D7986581112024": "idle",
+      "0x4404Fb70d490c935758146f42A73DC850FF95C71": "agree",
+      "0x4aba638Cf0Cf5249437AaD968fC69dde46ae6BAC": "agree",
+      "0x76c25AFC12c75485703cCFfd0083AA6201455B25": "agree",
+      "0x90402341F0B0e97b23023c0a87de957FB7148E0F": "idle"
+    },
+    "leader_receipt": [
+      {
+        "execution_result": "SUCCESS",
+        "genvm_result": {
+          "stderr": "",
+          "stdout": "Extraction candidate {\"entries\": [{\"cents\": 5000, \"id\": \"R-I1\", \"role\": \"INVOICE\"}, {\"id\": \"R-P1\", \"role\": \"UNKNOWN\"}]}\n",
+          "raw_error": null,
+          "error_code": null,
+          "error_description": null
+        },
+        "mode": "leader",
+        "vote": null,
+        "calldata": {
+          "readable": "{\"args\":[\"https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/review.json\",\"1905f39537b26849dcf431bb7a76a850babfc2f6d453bead4f2f3a7f1d28f4d9\",]\"method\":\"reconcile_batch\"}"
+        },
+        "eq_outputs": {
+          "0": {
+            "status": "return",
+            "payload": {
+              "readable": "{\"document\":{\"batch\":\"review\"\"entries\":[{\"id\":\"R-I1\"\"text\":\"Invoice R-I1 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $50.00. This invoice has not been voided.\"},{\"id\":\"R-P1\"\"text\":\"Remittance R-P1 confirms Harbor Workshop paid Cedar Tools in USD, but the amount field is illegible and no amount can be established.\"},]}\"entries\":[{\"allowed\":null\"cents\":5000\"id\":\"R-I1\"\"role\":\"INVOICE\"},{\"allowed\":null\"cents\":null\"id\":\"R-P1\"\"role\":\"UNKNOWN\"},]}"
+            }
+          }
+        },
+        "result": {
+          "status": "return",
+          "payload": {
+            "readable": "null"
+          }
+        }
+      },
+      {
+        "execution_result": "SUCCESS",
+        "genvm_result": {
+          "stderr": "",
+          "stdout": "Extraction candidate {\"entries\": [{\"cents\": 5000, \"id\": \"R-I1\", \"role\": \"INVOICE\"}, {\"id\": \"R-P1\", \"role\": \"UNKNOWN\"}]}\n",
+          "raw_error": null,
+          "error_code": null,
+          "error_description": null
+        },
+        "mode": "validator",
+        "vote": "agree",
+        "calldata": {
+          "readable": "{\"args\":[\"https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/review.json\",\"1905f39537b26849dcf431bb7a76a850babfc2f6d453bead4f2f3a7f1d28f4d9\",]\"method\":\"reconcile_batch\"}"
+        },
+        "result": {
+          "status": "return",
+          "payload": {
+            "readable": "null"
+          }
+        }
+      }
+    ],
+    "validators": [
+      {
+        "execution_result": "ERROR",
+        "genvm_result": {
+          "stderr": "Validator execution cancelled after quorum",
+          "stdout": "",
+          "raw_error": {
+            "fatal": false,
+            "causes": [
+              "VALIDATOR_QUORUM_REACHED"
+            ]
+          },
+          "error_code": "CONSENSUS_VALIDATOR_QUORUM_REACHED"
+        },
+        "mode": "validator",
+        "vote": "idle"
+      },
+      {
+        "execution_result": "SUCCESS",
+        "genvm_result": {
+          "stderr": "",
+          "stdout": "Extraction candidate {\"entries\": [{\"cents\": 5000, \"id\": \"R-I1\", \"role\": \"INVOICE\"}, {\"id\": \"R-P1\", \"role\": \"UNKNOWN\"}]}\n",
+          "raw_error": null,
+          "error_code": null,
+          "error_description": null
+        },
+        "mode": "validator",
+        "vote": "agree"
+      },
+      {
+        "execution_result": "ERROR",
+        "genvm_result": {
+          "stderr": "Validator execution cancelled after quorum",
+          "stdout": "",
+          "raw_error": {
+            "fatal": false,
+            "causes": [
+              "VALIDATOR_QUORUM_REACHED"
+            ]
+          },
+          "error_code": "CONSENSUS_VALIDATOR_QUORUM_REACHED"
+        },
+        "mode": "validator",
+        "vote": "idle"
+      },
+      {
+        "execution_result": "SUCCESS",
+        "genvm_result": {
+          "stderr": "",
+          "stdout": "Extraction candidate {\"entries\": [{\"cents\": 5000, \"id\": \"R-I1\", \"role\": \"INVOICE\"}, {\"id\": \"R-P1\", \"role\": \"UNKNOWN\"}]}\n",
+          "raw_error": null,
+          "error_code": null,
+          "error_description": null
+        },
+        "mode": "validator",
+        "vote": "agree"
+      }
+    ]
+  },
+  "gaslimit": 4,
+  "nonce": 4,
+  "created_at": "2026-10-10T06:09:10.342660+00:00",
+  "leader_only": false,
+  "execution_mode": "NORMAL",
+  "origin_address": "0x338E7e2eDA2e6E9b5136Fb6ED4c11e45db480333",
+  "triggered_on": null,
+  "appeal_validators_timeout": false,
+  "sim_config": {
+    "signed_rollup_transaction": "0xf9022904808307a12094b7278a61aa25c888815afc32ad3cc52ff24fe57580b901c427241a99000000000000000000000000338e7e2eda2e6e9b5136fb6ed4c11e45db4803330000000000000000000000000d955c282c1f6b718c642ba0fec6db626020c3850000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000edf8ebb8e816046172677315b40868747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f6d6f68616d6d61646973696e61313938382d6a70672f72656d697474616e63652d6b65726e656c2f636236386335373366363665393163313332363333383636313361373934313734363565336635662f7265636f7264732f7265766965772e6a736f6e840431393035663339353337623236383439646366343331626237613736613835306261626663326636643435336265616434663266336137663164323866346439066d6574686f647c7265636f6e63696c655f626174636800000000000000000000000000000000000000008301e481a02db130c2835d84c53e003c6400942d42310dc3f7365c90eb0017fa3965f3c8a7a0323f6fd97a359ff3c8324604d09ad1b3aaae9caed8b40dc78c70bd7d329be375"
+  },
+  "value_credited": false,
+  "sender": "0x338E7e2eDA2e6E9b5136Fb6ED4c11e45db480333",
+  "recipient": "0x0D955C282c1F6b718c642Ba0fEc6Db626020c385",
+  "tx_id": "0x4a85defebae1a3545b670b037dc8040b53fd8be81c7109d584d5a5ca10d818e7",
+  "activator": "0x4404Fb70d490c935758146f42A73DC850FF95C71",
+  "last_leader": "0x4404Fb70d490c935758146f42A73DC850FF95C71",
+  "result_name": "MAJORITY_AGREE",
+  "num_of_rounds": "1",
+  "last_round": {
+    "round": "0",
+    "leader_index": "0",
+    "votes_committed": "5",
+    "votes_revealed": "5",
+    "appeal_bond": "0",
+    "rotations_left": "3",
+    "result": 6,
+    "round_validators": [
+      "0x4404Fb70d490c935758146f42A73DC850FF95C71",
+      "0x90402341F0B0e97b23023c0a87de957FB7148E0F",
+      "0x76c25AFC12c75485703cCFfd0083AA6201455B25",
+      "0x3E5ee2507cc167C9925Bf10c67D7986581112024",
+      "0x4aba638Cf0Cf5249437AaD968fC69dde46ae6BAC"
+    ],
+    "validator_votes_hash": [
+      "0x1beeb255ae72846f8f31b86d3b874e2cc8035cbb8448a276b056326a16b86b2b",
+      "0x1056fa625d1a6b5387cdce4ffb860b8b73f83280168dfcef78d0bfc5ffc3d33e",
+      "0xf04a03e03645af6f3089af982e88ac8226aa0cd7300107b7e279f2cd0e7c92dc",
+      "0x259af150996e6ebfea84b1f9a5a58e35dc69caa4debf3d4a80c1163b38a6e29f",
+      "0x6e427459ea468ed49ada3df6d753d368a78b804f5b493ae707b7d204c19354df"
+    ],
+    "validator_votes": [
+      1,
+      5,
+      1,
+      5,
+      1
+    ],
+    "validator_votes_name": [
+      "AGREE",
+      "IDLE",
+      "AGREE",
+      "IDLE",
+      "AGREE"
+    ]
+  },
+  "type": 2,
+  "status_name": "FINALIZED"
+}

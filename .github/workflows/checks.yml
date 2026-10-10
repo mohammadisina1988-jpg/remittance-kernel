@@ -16,4 +16,4 @@ jobs:
         with:
           node-version: '22'
       - run: node --check scripts/prove-scenarios.cjs
-      - run: node --check scripts/verify-proofs.cjs
+      - run: node scripts/verify-proofs.cjs

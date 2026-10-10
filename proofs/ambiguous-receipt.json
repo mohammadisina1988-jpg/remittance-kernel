@@ -1,0 +1,184 @@
+{
+  "hash": "0x93a296429c592b9667344dfc4c06bff36e23a06105217517fdaf2bfb8d56b456",
+  "from_address": "0x338E7e2eDA2e6E9b5136Fb6ED4c11e45db480333",
+  "to_address": "0x0D955C282c1F6b718c642Ba0fEc6Db626020c385",
+  "data": {
+    "calldata": {
+      "readable": "{\"args\":[\"https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/ambiguous.json\",\"05c9238df7a68f62271ed4f4a3b31a67b775409b1f0b82c589d6048e2cd0a6a4\",]\"method\":\"reconcile_batch\"}"
+    }
+  },
+  "status": 7,
+  "result": 6,
+  "consensus_data": {
+    "votes": {
+      "0x4404Fb70d490c935758146f42A73DC850FF95C71": "agree",
+      "0x4EDbE1FC9EAeC7b0EBA849b0C76AE73Eb0ad5C47": "idle",
+      "0x5310dcF075E0BD47d29B8ec6581F736C767f54D2": "idle",
+      "0xDB1c35c1f05d885999b8f13e5735307BcC16Be88": "agree",
+      "0xacc2459F341D7a887bcA8FAA62F1EC9378d4Bc67": "agree"
+    },
+    "leader_receipt": [
+      {
+        "execution_result": "SUCCESS",
+        "genvm_result": {
+          "stderr": "",
+          "stdout": "Extraction candidate {\"entries\": [{\"cents\": 5000, \"id\": \"A-I1\", \"role\": \"INVOICE\"}, {\"cents\": 5000, \"id\": \"A-I2\", \"role\": \"INVOICE\"}, {\"cents\": 5000, \"id\": \"A-P1\", \"restriction\": \"UNRESTRICTED\", \"role\": \"PAYMENT\"}, {\"cents\": 5000, \"id\": \"A-P2\", \"restriction\": \"UNRESTRICTED\", \"role\": \"PAYMENT\"}]}\n",
+          "raw_error": null,
+          "error_code": null,
+          "error_description": null
+        },
+        "mode": "leader",
+        "vote": null,
+        "calldata": {
+          "readable": "{\"args\":[\"https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/ambiguous.json\",\"05c9238df7a68f62271ed4f4a3b31a67b775409b1f0b82c589d6048e2cd0a6a4\",]\"method\":\"reconcile_batch\"}"
+        },
+        "eq_outputs": {
+          "0": {
+            "status": "return",
+            "payload": {
+              "readable": "{\"document\":{\"batch\":\"ambiguous\"\"entries\":[{\"id\":\"A-I1\"\"text\":\"Invoice A-I1 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $50.00. This invoice has not been voided.\"},{\"id\":\"A-I2\"\"text\":\"Invoice A-I2 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $50.00. This invoice has not been voided.\"},{\"id\":\"A-P1\"\"text\":\"Remittance A-P1 confirms Harbor Workshop completed a USD payment of $50.00 to Cedar Tools. The remittance places no restriction on which invoices it settles.\"},{\"id\":\"A-P2\"\"text\":\"Remittance A-P2 confirms Harbor Workshop completed a USD payment of $50.00 to Cedar Tools. The remittance places no restriction on which invoices it settles.\"},]}\"entries\":[{\"allowed\":null\"cents\":5000\"id\":\"A-I1\"\"role\":\"INVOICE\"},{\"allowed\":null\"cents\":5000\"id\":\"A-I2\"\"role\":\"INVOICE\"},{\"allowed\":null\"cents\":5000\"id\":\"A-P1\"\"role\":\"PAYMENT\"},{\"allowed\":null\"cents\":5000\"id\":\"A-P2\"\"role\":\"PAYMENT\"},]}"
+            }
+          }
+        },
+        "result": {
+          "status": "return",
+          "payload": {
+            "readable": "null"
+          }
+        }
+      },
+      {
+        "execution_result": "ERROR",
+        "genvm_result": {
+          "stderr": "Validator execution cancelled after quorum",
+          "stdout": "",
+          "raw_error": {
+            "fatal": false,
+            "causes": [
+              "VALIDATOR_QUORUM_REACHED"
+            ]
+          },
+          "error_code": "CONSENSUS_VALIDATOR_QUORUM_REACHED"
+        },
+        "mode": "validator",
+        "vote": "idle",
+        "result": {
+          "status": "contract_error",
+          "payload": "idle"
+        }
+      }
+    ],
+    "validators": [
+      {
+        "execution_result": "SUCCESS",
+        "genvm_result": {
+          "stderr": "",
+          "stdout": "Extraction candidate {\"entries\": [{\"cents\": 5000, \"id\": \"A-I1\", \"role\": \"INVOICE\"}, {\"cents\": 5000, \"id\": \"A-I2\", \"role\": \"INVOICE\"}, {\"cents\": 5000, \"id\": \"A-P1\", \"restriction\": \"UNRESTRICTED\", \"role\": \"PAYMENT\"}, {\"cents\": 5000, \"id\": \"A-P2\", \"restriction\": \"UNRESTRICTED\", \"role\": \"PAYMENT\"}]}\n",
+          "raw_error": null,
+          "error_code": null,
+          "error_description": null
+        },
+        "mode": "validator",
+        "vote": "agree"
+      },
+      {
+        "execution_result": "SUCCESS",
+        "genvm_result": {
+          "stderr": "",
+          "stdout": "Extraction candidate {\"entries\": [{\"cents\": 5000, \"id\": \"A-I1\", \"role\": \"INVOICE\"}, {\"cents\": 5000, \"id\": \"A-I2\", \"role\": \"INVOICE\"}, {\"cents\": 5000, \"id\": \"A-P1\", \"restriction\": \"UNRESTRICTED\", \"role\": \"PAYMENT\"}, {\"cents\": 5000, \"id\": \"A-P2\", \"restriction\": \"UNRESTRICTED\", \"role\": \"PAYMENT\"}]}\n",
+          "raw_error": null,
+          "error_code": null,
+          "error_description": null
+        },
+        "mode": "validator",
+        "vote": "agree"
+      },
+      {
+        "execution_result": "ERROR",
+        "genvm_result": {
+          "stderr": "Validator execution cancelled after quorum",
+          "stdout": "",
+          "raw_error": {
+            "fatal": false,
+            "causes": [
+              "VALIDATOR_QUORUM_REACHED"
+            ]
+          },
+          "error_code": "CONSENSUS_VALIDATOR_QUORUM_REACHED"
+        },
+        "mode": "validator",
+        "vote": "idle"
+      },
+      {
+        "execution_result": "SUCCESS",
+        "genvm_result": {
+          "stderr": "",
+          "stdout": "Extraction candidate {\"entries\": [{\"cents\": 5000, \"id\": \"A-I1\", \"role\": \"INVOICE\"}, {\"cents\": 5000, \"id\": \"A-I2\", \"role\": \"INVOICE\"}, {\"cents\": 5000, \"id\": \"A-P1\", \"restriction\": \"UNRESTRICTED\", \"role\": \"PAYMENT\"}, {\"cents\": 5000, \"id\": \"A-P2\", \"restriction\": \"UNRESTRICTED\", \"role\": \"PAYMENT\"}]}\n",
+          "raw_error": null,
+          "error_code": null,
+          "error_description": null
+        },
+        "mode": "validator",
+        "vote": "agree"
+      }
+    ]
+  },
+  "gaslimit": 2,
+  "nonce": 2,
+  "created_at": "2026-10-10T06:05:02.808364+00:00",
+  "leader_only": false,
+  "execution_mode": "NORMAL",
+  "origin_address": "0x338E7e2eDA2e6E9b5136Fb6ED4c11e45db480333",
+  "triggered_on": null,
+  "appeal_validators_timeout": false,
+  "sim_config": {
+    "signed_rollup_transaction": "0xf9022902808307a12094b7278a61aa25c888815afc32ad3cc52ff24fe57580b901c427241a99000000000000000000000000338e7e2eda2e6e9b5136fb6ed4c11e45db4803330000000000000000000000000d955c282c1f6b718c642ba0fec6db626020c3850000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000f0f8eeb8eb16046172677315cc0868747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f6d6f68616d6d61646973696e61313938382d6a70672f72656d697474616e63652d6b65726e656c2f636236386335373366363665393163313332363333383636313361373934313734363565336635662f7265636f7264732f616d626967756f75732e6a736f6e840430356339323338646637613638663632323731656434663461336233316136376237373534303962316630623832633538396436303438653263643061366134066d6574686f647c7265636f6e63696c655f626174636800000000000000000000000000000000008301e481a0d26adf7892ae450beb5c50d4178bfc56d67d88544f6b6f6162f24ad1f71f42d6a03a4d73313ddfb62051682044352677469acb42aa89d6591d08069b6e816fffab"
+  },
+  "value_credited": false,
+  "sender": "0x338E7e2eDA2e6E9b5136Fb6ED4c11e45db480333",
+  "recipient": "0x0D955C282c1F6b718c642Ba0fEc6Db626020c385",
+  "tx_id": "0x93a296429c592b9667344dfc4c06bff36e23a06105217517fdaf2bfb8d56b456",
+  "activator": "0x5310dcF075E0BD47d29B8ec6581F736C767f54D2",
+  "last_leader": "0x5310dcF075E0BD47d29B8ec6581F736C767f54D2",
+  "result_name": "MAJORITY_AGREE",
+  "num_of_rounds": "1",
+  "last_round": {
+    "round": "0",
+    "leader_index": "0",
+    "votes_committed": "5",
+    "votes_revealed": "5",
+    "appeal_bond": "0",
+    "rotations_left": "3",
+    "result": 6,
+    "round_validators": [
+      "0x5310dcF075E0BD47d29B8ec6581F736C767f54D2",
+      "0xacc2459F341D7a887bcA8FAA62F1EC9378d4Bc67",
+      "0xDB1c35c1f05d885999b8f13e5735307BcC16Be88",
+      "0x4EDbE1FC9EAeC7b0EBA849b0C76AE73Eb0ad5C47",
+      "0x4404Fb70d490c935758146f42A73DC850FF95C71"
+    ],
+    "validator_votes_hash": [
+      "0x62f877b91755dd165c47a35acd7be7b46bb1b27ecbf03a4da08d32891fd0f963",
+      "0xf8096b352462d14d80ab37d28bdd6bea839dbf444c569c86c61ed21bca2bd5f5",
+      "0xe937a2c8db31f9e218a481cb94c6114fe303783b00c36ac95c59391f68c243b0",
+      "0x491795280248cb816287a3175028df809cf98ec7e2830a8bc7cefd39a3a0a785",
+      "0xb06ef91bedf8538682d095e269d559a6ce5f30a918df10f6192863caaa9872c4"
+    ],
+    "validator_votes": [
+      5,
+      1,
+      1,
+      5,
+      1
+    ],
+    "validator_votes_name": [
+      "IDLE",
+      "AGREE",
+      "AGREE",
+      "IDLE",
+      "AGREE"
+    ]
+  },
+  "type": 2,
+  "status_name": "FINALIZED"
+}

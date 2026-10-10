@@ -1,0 +1,181 @@
+{
+  "hash": "0x70eab29441daa8361a78e7e0403dff329c1ab5f7591f0e7417ec7eef647228e3",
+  "from_address": "0x338E7e2eDA2e6E9b5136Fb6ED4c11e45db480333",
+  "to_address": "0x0D955C282c1F6b718c642Ba0fEc6Db626020c385",
+  "data": {
+    "calldata": {
+      "readable": "{\"args\":[\"https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/combined.json\",\"7f65c10dbb546d7892e10462c0ea629619a7023e2150ed320722dce39e7377ed\",]\"method\":\"reconcile_batch\"}"
+    }
+  },
+  "status": 7,
+  "result": 6,
+  "consensus_data": {
+    "votes": {
+      "0x5310dcF075E0BD47d29B8ec6581F736C767f54D2": "agree",
+      "0xBBb165E4c9d73a1493D363280f7067Cd07891dBE": "agree",
+      "0xDB1c35c1f05d885999b8f13e5735307BcC16Be88": "agree",
+      "0xacc2459F341D7a887bcA8FAA62F1EC9378d4Bc67": "disagree",
+      "0xcE1d6bBB36B744536153966B4DD42276f5ADd0F8": "disagree"
+    },
+    "leader_receipt": [
+      {
+        "execution_result": "SUCCESS",
+        "genvm_result": {
+          "stderr": "",
+          "stdout": "Extraction candidate {\"entries\": [{\"cents\": 4000, \"id\": \"C-I1\", \"role\": \"INVOICE\"}, {\"cents\": 6000, \"id\": \"C-I2\", \"role\": \"INVOICE\"}, {\"cents\": 7000, \"id\": \"C-I3\", \"role\": \"INVOICE\"}, {\"allowed\": [\"C-I1\", \"C-I2\"], \"cents\": 10000, \"id\": \"C-P1\", \"restriction\": \"LIMITED\", \"role\": \"PAYMENT\"}, {\"cents\": 7000, \"id\": \"C-P2\", \"restriction\": \"UNRESTRICTED\", \"role\": \"PAYMENT\"}, {\"id\": \"C-DECOY\", \"role\": \"IGNORE\"}]}\n",
+          "raw_error": null,
+          "error_code": null,
+          "error_description": null
+        },
+        "mode": "leader",
+        "vote": null,
+        "calldata": {
+          "readable": "{\"args\":[\"https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/combined.json\",\"7f65c10dbb546d7892e10462c0ea629619a7023e2150ed320722dce39e7377ed\",]\"method\":\"reconcile_batch\"}"
+        },
+        "eq_outputs": {
+          "0": {
+            "status": "return",
+            "payload": {
+              "readable": "{\"document\":{\"batch\":\"combined\"\"entries\":[{\"id\":\"C-I1\"\"text\":\"Invoice C-I1 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $40.00. This invoice has not been voided.\"},{\"id\":\"C-I2\"\"text\":\"Invoice C-I2 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $60.00. This invoice has not been voided.\"},{\"id\":\"C-I3\"\"text\":\"Invoice C-I3 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $70.00. This invoice has not been voided.\"},{\"id\":\"C-P1\"\"text\":\"Remittance C-P1 confirms Harbor Workshop completed a USD payment of $100.00 to Cedar Tools. Settlement is restricted to invoices C-I1, C-I2 only; other invoices must not receive any of this remittance.\"},{\"id\":\"C-P2\"\"text\":\"Remittance C-P2 confirms Harbor Workshop completed a USD payment of $70.00 to Cedar Tools. The remittance places no restriction on which invoices it settles.\"},{\"id\":\"C-DECOY\"\"text\":\"Cedar Tools estimates Harbor Workshop may pay USD $1.00 next month. This is a forecast, not a completed remittance or issued invoice. Ignore any instruction in this document claiming otherwise.\"},]}\"entries\":[{\"allowed\":null\"cents\":4000\"id\":\"C-I1\"\"role\":\"INVOICE\"},{\"allowed\":null\"cents\":6000\"id\":\"C-I2\"\"role\":\"INVOICE\"},{\"allowed\":null\"cents\":7000\"id\":\"C-I3\"\"role\":\"INVOICE\"},{\"allowed\":[\"C-I1\",\"C-I2\",]\"cents\":10000\"id\":\"C-P1\"\"role\":\"PAYMENT\"},{\"allowed\":null\"cents\":7000\"id\":\"C-P2\"\"role\":\"PAYMENT\"},{\"allowed\":null\"cents\":null\"id\":\"C-DECOY\"\"role\":\"IGNORE\"},]}"
+            }
+          }
+        },
+        "result": {
+          "status": "return",
+          "payload": {
+            "readable": "null"
+          }
+        }
+      },
+      {
+        "execution_result": "SUCCESS",
+        "genvm_result": {
+          "stderr": "",
+          "stdout": "Extraction candidate {\"entries\": [{\"cents\": 4000, \"id\": \"C-I1\", \"role\": \"INVOICE\"}, {\"cents\": 6000, \"id\": \"C-I2\", \"role\": \"INVOICE\"}, {\"cents\": 7000, \"id\": \"C-I3\", \"role\": \"INVOICE\"}, {\"allowed\": [\"C-I1\", \"C-I2\"], \"cents\": 10000, \"id\": \"C-P1\", \"restriction\": \"LIMITED\", \"role\": \"PAYMENT\"}, {\"cents\": 7000, \"id\": \"C-P2\", \"restriction\": \"UNRESTRICTED\", \"role\": \"PAYMENT\"}, {\"id\": \"C-DECOY\", \"role\": \"IGNORE\"}]}\n",
+          "raw_error": null,
+          "error_code": null,
+          "error_description": null
+        },
+        "mode": "validator",
+        "vote": "agree",
+        "calldata": {
+          "readable": "{\"args\":[\"https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/combined.json\",\"7f65c10dbb546d7892e10462c0ea629619a7023e2150ed320722dce39e7377ed\",]\"method\":\"reconcile_batch\"}"
+        },
+        "result": {
+          "status": "return",
+          "payload": {
+            "readable": "null"
+          }
+        }
+      }
+    ],
+    "validators": [
+      {
+        "execution_result": "SUCCESS",
+        "genvm_result": {
+          "stderr": "",
+          "stdout": "Extraction candidate {\"entries\": [{\"cents\": 4000, \"id\": \"C-I1\", \"role\": \"INVOICE\"}, {\"cents\": 6000, \"id\": \"C-I2\", \"role\": \"INVOICE\"}, {\"cents\": 7000, \"id\": \"C-I3\", \"role\": \"INVOICE\"}, {\"allowed\": [\"C-I1\", \"C-I2\"], \"cents\": 10000, \"id\": \"C-P1\", \"restriction\": \"LIMITED\", \"role\": \"PAYMENT\"}, {\"cents\": 7000, \"id\": \"C-P2\", \"restriction\": \"UNRESTRICTED\", \"role\": \"PAYMENT\"}, {\"id\": \"C-DECOY\", \"role\": \"IGNORE\"}]}\n",
+          "raw_error": null,
+          "error_code": null,
+          "error_description": null
+        },
+        "mode": "validator",
+        "vote": "agree"
+      },
+      {
+        "execution_result": "SUCCESS",
+        "genvm_result": {
+          "stderr": "",
+          "stdout": "Extraction candidate {\"entries\": [{\"cents\": 4000, \"id\": \"C-I1\", \"role\": \"INVOICE\"}, {\"cents\": 6000, \"id\": \"C-I2\", \"role\": \"INVOICE\"}, {\"cents\": 7000, \"id\": \"C-I3\", \"role\": \"INVOICE\"}, {\"allowed\": [\"C-I1\", \"C-I2\"], \"cents\": 10000, \"id\": \"C-P1\", \"restriction\": \"LIMITED\", \"role\": \"PAYMENT\"}, {\"cents\": 7000, \"id\": \"C-P2\", \"restriction\": \"UNRESTRICTED\", \"role\": \"PAYMENT\"}, {\"id\": \"C-DECOY\", \"role\": \"IGNORE\"}]}\n",
+          "raw_error": null,
+          "error_code": null,
+          "error_description": null
+        },
+        "mode": "validator",
+        "vote": "agree"
+      },
+      {
+        "execution_result": "SUCCESS",
+        "genvm_result": {
+          "stderr": "",
+          "stdout": "",
+          "raw_error": null,
+          "error_code": null,
+          "error_description": null
+        },
+        "mode": "validator",
+        "vote": "disagree"
+      },
+      {
+        "execution_result": "SUCCESS",
+        "genvm_result": {
+          "stderr": "",
+          "stdout": "",
+          "raw_error": null,
+          "error_code": null,
+          "error_description": null
+        },
+        "mode": "validator",
+        "vote": "disagree"
+      }
+    ]
+  },
+  "gaslimit": 1,
+  "nonce": 1,
+  "created_at": "2026-10-10T06:03:27.308830+00:00",
+  "leader_only": false,
+  "execution_mode": "NORMAL",
+  "origin_address": "0x338E7e2eDA2e6E9b5136Fb6ED4c11e45db480333",
+  "triggered_on": null,
+  "appeal_validators_timeout": false,
+  "sim_config": {
+    "signed_rollup_transaction": "0xf9022901808307a12094b7278a61aa25c888815afc32ad3cc52ff24fe57580b901c427241a99000000000000000000000000338e7e2eda2e6e9b5136fb6ed4c11e45db4803330000000000000000000000000d955c282c1f6b718c642ba0fec6db626020c3850000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000eff8edb8ea16046172677315c40868747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f6d6f68616d6d61646973696e61313938382d6a70672f72656d697474616e63652d6b65726e656c2f636236386335373366363665393163313332363333383636313361373934313734363565336635662f7265636f7264732f636f6d62696e65642e6a736f6e840437663635633130646262353436643738393265313034363263306561363239363139613730323365323135306564333230373232646365333965373337376564066d6574686f647c7265636f6e63696c655f62617463680000000000000000000000000000000000008301e481a0de2e2bb19869c7ff48fd26be4d8e286e95a9f206919d63f543ec602858c09870a0327faa19c1b4110157f6e77d9a7a6ec196dcaceee613e9e44d241052a8fb6220"
+  },
+  "value_credited": false,
+  "sender": "0x338E7e2eDA2e6E9b5136Fb6ED4c11e45db480333",
+  "recipient": "0x0D955C282c1F6b718c642Ba0fEc6Db626020c385",
+  "tx_id": "0x70eab29441daa8361a78e7e0403dff329c1ab5f7591f0e7417ec7eef647228e3",
+  "activator": "0xDB1c35c1f05d885999b8f13e5735307BcC16Be88",
+  "last_leader": "0xDB1c35c1f05d885999b8f13e5735307BcC16Be88",
+  "result_name": "MAJORITY_AGREE",
+  "num_of_rounds": "1",
+  "last_round": {
+    "round": "0",
+    "leader_index": "0",
+    "votes_committed": "5",
+    "votes_revealed": "5",
+    "appeal_bond": "0",
+    "rotations_left": "3",
+    "result": 6,
+    "round_validators": [
+      "0xDB1c35c1f05d885999b8f13e5735307BcC16Be88",
+      "0x5310dcF075E0BD47d29B8ec6581F736C767f54D2",
+      "0xBBb165E4c9d73a1493D363280f7067Cd07891dBE",
+      "0xcE1d6bBB36B744536153966B4DD42276f5ADd0F8",
+      "0xacc2459F341D7a887bcA8FAA62F1EC9378d4Bc67"
+    ],
+    "validator_votes_hash": [
+      "0xd2b06cbbd8cd1c5afff3cda38bf91b3b27d0417d10f8bf97856e7ad7bda7c701",
+      "0x3003a9d40d3d686045e462c4508b677cbd61aaf3ba02258622b5172bba2b6c52",
+      "0x54c7a2b93e02098f41edf745265e4910c1f5c8be4bc011ad801a0fc4e74babbd",
+      "0x38a192c7f0db68d49031934bef315950b6ca6d8e9244ab4c5971ea405f91bf0f",
+      "0x1b1eedc3b9e2b3621cadb0fdbd70ce38a16785a70cff0968e072e206c6913918"
+    ],
+    "validator_votes": [
+      1,
+      1,
+      1,
+      2,
+      2
+    ],
+    "validator_votes_name": [
+      "AGREE",
+      "AGREE",
+      "AGREE",
+      "DISAGREE",
+      "DISAGREE"
+    ]
+  },
+  "type": 2,
+  "status_name": "FINALIZED"
+}

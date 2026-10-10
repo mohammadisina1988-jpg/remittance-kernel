@@ -1,0 +1,189 @@
+{
+  "hash": "0xaec81cb962854ec805c6b4e5db98e20d9ff1fdc69b083f1d499ba823608a4955",
+  "from_address": "0x338E7e2eDA2e6E9b5136Fb6ED4c11e45db480333",
+  "to_address": "0x0D955C282c1F6b718c642Ba0fEc6Db626020c385",
+  "data": {
+    "calldata": {
+      "readable": "{\"args\":[\"https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/unbalanced.json\",\"5be858c0c8a75ed5bda3136dc041692b1ee6b17f6d8acd4e09edfea894e6f526\",]\"method\":\"reconcile_batch\"}"
+    }
+  },
+  "status": 7,
+  "result": 6,
+  "consensus_data": {
+    "votes": {
+      "0x03D58A4DeF6fDFc032A56374785a5F571D07Bc11": "agree",
+      "0x14402D49f317CE1a2F35BAE01b1804A2A9703dCb": "agree",
+      "0x36728d2a123aB444E603EE5b2ad17d18Bb193557": "agree",
+      "0xDB1c35c1f05d885999b8f13e5735307BcC16Be88": "idle",
+      "0xec2Fb79cd12255Eb34886CEd7332f27B98DEe658": "idle"
+    },
+    "leader_receipt": [
+      {
+        "execution_result": "SUCCESS",
+        "genvm_result": {
+          "stderr": "",
+          "stdout": "Extraction candidate {\"entries\": [{\"cents\": 5000, \"id\": \"U-I1\", \"role\": \"INVOICE\"}, {\"cents\": 4900, \"id\": \"U-P1\", \"restriction\": \"UNRESTRICTED\", \"role\": \"PAYMENT\"}]}\n",
+          "raw_error": null,
+          "error_code": null,
+          "error_description": null
+        },
+        "mode": "leader",
+        "vote": null,
+        "calldata": {
+          "readable": "{\"args\":[\"https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/unbalanced.json\",\"5be858c0c8a75ed5bda3136dc041692b1ee6b17f6d8acd4e09edfea894e6f526\",]\"method\":\"reconcile_batch\"}"
+        },
+        "eq_outputs": {
+          "0": {
+            "status": "return",
+            "payload": {
+              "readable": "{\"document\":{\"batch\":\"unbalanced\"\"entries\":[{\"id\":\"U-I1\"\"text\":\"Invoice U-I1 was issued by Cedar Tools to Harbor Workshop. The final USD amount due is $50.00. This invoice has not been voided.\"},{\"id\":\"U-P1\"\"text\":\"Remittance U-P1 confirms Harbor Workshop completed a USD payment of $49.00 to Cedar Tools. The remittance places no restriction on which invoices it settles.\"},]}\"entries\":[{\"allowed\":null\"cents\":5000\"id\":\"U-I1\"\"role\":\"INVOICE\"},{\"allowed\":null\"cents\":4900\"id\":\"U-P1\"\"role\":\"PAYMENT\"},]}"
+            }
+          }
+        },
+        "result": {
+          "status": "return",
+          "payload": {
+            "readable": "null"
+          }
+        }
+      },
+      {
+        "execution_result": "SUCCESS",
+        "genvm_result": {
+          "stderr": "",
+          "stdout": "Extraction candidate {\"entries\": [{\"cents\": 5000, \"id\": \"U-I1\", \"role\": \"INVOICE\"}, {\"cents\": 4900, \"id\": \"U-P1\", \"restriction\": \"UNRESTRICTED\", \"role\": \"PAYMENT\"}]}\n",
+          "raw_error": null,
+          "error_code": null,
+          "error_description": null
+        },
+        "mode": "validator",
+        "vote": "agree",
+        "calldata": {
+          "readable": "{\"args\":[\"https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/unbalanced.json\",\"5be858c0c8a75ed5bda3136dc041692b1ee6b17f6d8acd4e09edfea894e6f526\",]\"method\":\"reconcile_batch\"}"
+        },
+        "result": {
+          "status": "return",
+          "payload": {
+            "readable": "null"
+          }
+        }
+      }
+    ],
+    "validators": [
+      {
+        "execution_result": "SUCCESS",
+        "genvm_result": {
+          "stderr": "",
+          "stdout": "Extraction candidate {\"entries\": [{\"cents\": 5000, \"id\": \"U-I1\", \"role\": \"INVOICE\"}, {\"cents\": 4900, \"id\": \"U-P1\", \"restriction\": \"UNRESTRICTED\", \"role\": \"PAYMENT\"}]}\n",
+          "raw_error": null,
+          "error_code": null,
+          "error_description": null
+        },
+        "mode": "validator",
+        "vote": "agree"
+      },
+      {
+        "execution_result": "ERROR",
+        "genvm_result": {
+          "stderr": "Validator execution cancelled after quorum",
+          "stdout": "",
+          "raw_error": {
+            "fatal": false,
+            "causes": [
+              "VALIDATOR_QUORUM_REACHED"
+            ]
+          },
+          "error_code": "CONSENSUS_VALIDATOR_QUORUM_REACHED"
+        },
+        "mode": "validator",
+        "vote": "idle"
+      },
+      {
+        "execution_result": "ERROR",
+        "genvm_result": {
+          "stderr": "Validator execution cancelled after quorum",
+          "stdout": "",
+          "raw_error": {
+            "fatal": false,
+            "causes": [
+              "VALIDATOR_QUORUM_REACHED"
+            ]
+          },
+          "error_code": "CONSENSUS_VALIDATOR_QUORUM_REACHED"
+        },
+        "mode": "validator",
+        "vote": "idle"
+      },
+      {
+        "execution_result": "SUCCESS",
+        "genvm_result": {
+          "stderr": "",
+          "stdout": "Extraction candidate {\"entries\": [{\"cents\": 5000, \"id\": \"U-I1\", \"role\": \"INVOICE\"}, {\"cents\": 4900, \"id\": \"U-P1\", \"restriction\": \"UNRESTRICTED\", \"role\": \"PAYMENT\"}]}\n",
+          "raw_error": null,
+          "error_code": null,
+          "error_description": null
+        },
+        "mode": "validator",
+        "vote": "agree"
+      }
+    ]
+  },
+  "gaslimit": 3,
+  "nonce": 3,
+  "created_at": "2026-10-10T06:07:09.188822+00:00",
+  "leader_only": false,
+  "execution_mode": "NORMAL",
+  "origin_address": "0x338E7e2eDA2e6E9b5136Fb6ED4c11e45db480333",
+  "triggered_on": null,
+  "appeal_validators_timeout": false,
+  "sim_config": {
+    "signed_rollup_transaction": "0xf9022903808307a12094b7278a61aa25c888815afc32ad3cc52ff24fe57580b901c427241a99000000000000000000000000338e7e2eda2e6e9b5136fb6ed4c11e45db4803330000000000000000000000000d955c282c1f6b718c642ba0fec6db626020c3850000000000000000000000000000000000000000000000000000000000000005000000000000000000000000000000000000000000000000000000000000000300000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000f1f8efb8ec16046172677315d40868747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f6d6f68616d6d61646973696e61313938382d6a70672f72656d697474616e63652d6b65726e656c2f636236386335373366363665393163313332363333383636313361373934313734363565336635662f7265636f7264732f756e62616c616e6365642e6a736f6e840435626538353863306338613735656435626461333133366463303431363932623165653662313766366438616364346530396564666561383934653666353236066d6574686f647c7265636f6e63696c655f6261746368000000000000000000000000000000008301e481a02df74ceb331b1dfa7ade155a9546dbd11a4b620e583ef91e42a275ab608c5a44a074a5a7eb22f73413ddef518a499fc7636ccf7a9a9c076079090da8800b713ba2"
+  },
+  "value_credited": false,
+  "sender": "0x338E7e2eDA2e6E9b5136Fb6ED4c11e45db480333",
+  "recipient": "0x0D955C282c1F6b718c642Ba0fEc6Db626020c385",
+  "tx_id": "0xaec81cb962854ec805c6b4e5db98e20d9ff1fdc69b083f1d499ba823608a4955",
+  "activator": "0x03D58A4DeF6fDFc032A56374785a5F571D07Bc11",
+  "last_leader": "0x03D58A4DeF6fDFc032A56374785a5F571D07Bc11",
+  "result_name": "MAJORITY_AGREE",
+  "num_of_rounds": "1",
+  "last_round": {
+    "round": "0",
+    "leader_index": "0",
+    "votes_committed": "5",
+    "votes_revealed": "5",
+    "appeal_bond": "0",
+    "rotations_left": "3",
+    "result": 6,
+    "round_validators": [
+      "0x03D58A4DeF6fDFc032A56374785a5F571D07Bc11",
+      "0x36728d2a123aB444E603EE5b2ad17d18Bb193557",
+      "0xec2Fb79cd12255Eb34886CEd7332f27B98DEe658",
+      "0xDB1c35c1f05d885999b8f13e5735307BcC16Be88",
+      "0x14402D49f317CE1a2F35BAE01b1804A2A9703dCb"
+    ],
+    "validator_votes_hash": [
+      "0xcca20bc10c87fe5b5c9192bcef9f822910a905e4b71f92b380d372668b040002",
+      "0x585075e6628585e2866b670aa7bd805fad83ba487bd48cb150ec8394095cc0a2",
+      "0x7d12f8f9f30e8784ea29756bb172b2647ba4c81d525e93b38e8355daa2c7d18a",
+      "0x87c23b225c1e3c1f2c8b1041ca483bf8183372185e2496bf19c6f0422a857d41",
+      "0x2d46587bfdebab94dff763a1110e4d055977ae12d6be840da0e22727a719d065"
+    ],
+    "validator_votes": [
+      1,
+      1,
+      5,
+      5,
+      1
+    ],
+    "validator_votes_name": [
+      "AGREE",
+      "AGREE",
+      "IDLE",
+      "IDLE",
+      "AGREE"
+    ]
+  },
+  "type": 2,
+  "status_name": "FINALIZED"
+}

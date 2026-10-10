@@ -1,0 +1,62 @@
+{
+  "network": "studionet",
+  "chain_id": 61999,
+  "contract_address": "0x0D955C282c1F6b718c642Ba0fEc6Db626020c385",
+  "source_sha256": "47419bff1924342096517c4748cf999f4c1b24994a60d03daa5f56853ed3ad18",
+  "exact_source_match": true,
+  "fixture_revision": "cb68c573f66e91c13263386613a79417465e3f5f",
+  "sources": {
+    "combined": {
+      "url": "https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/combined.json",
+      "sha256": "7f65c10dbb546d7892e10462c0ea629619a7023e2150ed320722dce39e7377ed"
+    },
+    "ambiguous": {
+      "url": "https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/ambiguous.json",
+      "sha256": "05c9238df7a68f62271ed4f4a3b31a67b775409b1f0b82c589d6048e2cd0a6a4"
+    },
+    "unbalanced": {
+      "url": "https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/unbalanced.json",
+      "sha256": "5be858c0c8a75ed5bda3136dc041692b1ee6b17f6d8acd4e09edfea894e6f526"
+    },
+    "review": {
+      "url": "https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/review.json",
+      "sha256": "1905f39537b26849dcf431bb7a76a850babfc2f6d453bead4f2f3a7f1d28f4d9"
+    },
+    "restricted": {
+      "url": "https://raw.githubusercontent.com/mohammadisina1988-jpg/remittance-kernel/cb68c573f66e91c13263386613a79417465e3f5f/records/restricted.json",
+      "sha256": "61ef38e8f17f01b8af38704cdb5decda894b4deac4e241b62faf51c5d6fc3ccd"
+    }
+  },
+  "transactions": [
+    {
+      "label": "pool-deploy",
+      "action": "deploy",
+      "hash": "0x60d76c6d578453ef715b4856e89c091aeba04daf5139c054ce192bef2c0b7590"
+    },
+    {
+      "label": "combined",
+      "action": "reconcile_batch",
+      "hash": "0x70eab29441daa8361a78e7e0403dff329c1ab5f7591f0e7417ec7eef647228e3"
+    },
+    {
+      "label": "ambiguous",
+      "action": "reconcile_batch",
+      "hash": "0x93a296429c592b9667344dfc4c06bff36e23a06105217517fdaf2bfb8d56b456"
+    },
+    {
+      "label": "unbalanced",
+      "action": "reconcile_batch",
+      "hash": "0xaec81cb962854ec805c6b4e5db98e20d9ff1fdc69b083f1d499ba823608a4955"
+    },
+    {
+      "label": "review",
+      "action": "reconcile_batch",
+      "hash": "0x4a85defebae1a3545b670b037dc8040b53fd8be81c7109d584d5a5ca10d818e7"
+    },
+    {
+      "label": "restricted",
+      "action": "reconcile_batch",
+      "hash": "0x6fd5149b10e308da4d8eb98bdcb98c21e326e1efa53e4729591ec2f2cd77be15"
+    }
+  ]
+}
